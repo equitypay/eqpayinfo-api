@@ -8,7 +8,7 @@ const redisConfig = {
   db: 0
 }
 
-exports.keys = 'qtuminfo-api'
+exports.keys = 'eqrcinfo-api'
 
 exports.security = {
   csrf: {enable: false}
@@ -36,7 +36,7 @@ exports.ratelimit = {
 exports.io = {
   redis: {
     ...redisConfig,
-    key: 'qtuminfo-api-socket.io'
+    key: 'eqrcinfo-api-socket.io'
   },
   namespace: {
     '/': {connectionMiddleware: ['connection']}
@@ -45,26 +45,26 @@ exports.io = {
 
 exports.sequelize = {
   dialect: 'mysql',
-  database: 'qtum_mainnet',
+  database: 'eqpay_mainnet',
   host: 'localhost',
   port: 3306,
-  username: 'qtum',
-  password: ''
+  username: 'eqpay_mainnet',
+  password: 'eqpay1234$'
 }
 
-exports.qtum = {
+exports.eqpay = {
   chain: 'mainnet'
 }
 
-exports.qtuminfo = {
-  path: path.resolve('..', 'qtuminfo'),
+exports.eqpayinfo = {
+  path: path.resolve('..', 'eqpayinfo'),
   port: 3001,
   rpc: {
     protocol: 'http',
     host: 'localhost',
-    port: 3889,
-    user: 'user',
-    password: 'password'
+    port: 9999,
+    user: 'eqpay',
+    password: 'eqpay1234'
   }
 }
 
