@@ -50,20 +50,9 @@ class InfoService extends Service {
   }
 
   async getStakeWeight() {
-    const {Header} = this.ctx.model
-    const {gte: $gte} = this.app.Sequelize.Op
-    let height = await Header.aggregate('height', 'max', {transaction: this.ctx.state.transaction})
-    let list = await Header.findAll({
-      where: {height: {[$gte]: height - 500}},
-      attributes: ['timestamp', 'bits'],
-      order: [['height', 'ASC']],
-      transaction: this.ctx.state.transaction
-    })
-    let interval = list[list.length - 1].timestamp - list[0].timestamp
-    let sum = list.slice(1)
-      .map(x => x.difficulty)
-      .reduce((x, y) => x + y)
-    return sum * 2 ** 32 * 16 / interval
+    let client = new this.app.eqpayinfo.rpc(this.app.config.eqpayinfo.rpc)
+    let stakeWeight = await client.getstakinginfo()
+    return stakeWeight.netstakeweight
   }
 
   async getFeeRates() {
